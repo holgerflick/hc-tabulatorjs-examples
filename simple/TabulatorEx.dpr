@@ -1,4 +1,4 @@
-program TabularEx;
+program TabulatorEx;
 
 uses
   Vcl.Forms,
