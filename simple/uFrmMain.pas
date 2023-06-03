@@ -8,6 +8,12 @@ uses
 
 
 type
+  TCustomer = class
+    Name: String;
+    Age: Integer;
+  end;
+
+type
   TForm1 = class(TWebForm)
     WebButton1: TWebButton;
     procedure WebButton1Click(Sender: TObject);
@@ -31,11 +37,14 @@ uses
   ;
 
 procedure TForm1.WebButton1Click(Sender: TObject);
+var
+  LC: TCustomer;
 
 begin
+  LC := TCustomer.Create;
+  console.log( JS.toObject( LC ) );
+
   SetLength( FData, 2 );
-
-
 
   FData[0] := TJSObject.new;
   FData[0]['Name'] := 'Holger Flick';
@@ -48,6 +57,8 @@ begin
   FData[1]['Age'] := 54;
   FData[1]['Job'] := 'Innovator';
   FData[1]['Birthday'] := TBclUtils.DateTimeToISO( EncodeDate( 1969, 4, 18 ), false );
+
+
 
 
   asm
