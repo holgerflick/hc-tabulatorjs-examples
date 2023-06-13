@@ -17,5 +17,19 @@
         </div>
       </div>
     </div>
+
+    <script>
+      function showTable(tabData) {
+         var table = new Tabulator("#example-table", {
+          data: tabData, //assign data to table
+          columns: [
+             { title: "Name", field: "Name", editor: "input", sorter: "string" }
+           , { title: "Age", field: "Age", editor: "number", sorter: "number" }
+           , { title: "Job", field: "Job", editor: "input", sorter: "string" }
+           , { title: "Birthday", field: "Birthday", editor: "date", sorter: "date" }
+           ]
+         });
+      }
+    </script>
   </body>
 </html>

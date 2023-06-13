@@ -7,7 +7,6 @@ uses
   WEBLib.Forms, WEBLib.Dialogs, Vcl.Controls, Vcl.StdCtrls, WEBLib.StdCtrls,
   WEBLib.REST;
 
-
 type
   TForm1 = class(TWebForm)
     btnShow: TWebButton;
@@ -20,7 +19,7 @@ type
     { Public declarations }
     procedure ProcessResult( AResponse: TJSXMLHttpRequest );
 
-    [async] procedure ShowData;
+    [async] procedure RequestData;
   end;
 
 var
@@ -30,8 +29,6 @@ implementation
 
 {$R *.dfm}
 
-
-
 uses
   Bcl.Utils,
   DateUtils
@@ -39,7 +36,7 @@ uses
 
 type
 
-  //  { title: "Cover", field: "artworkUrl100", formatter: "image" }
+  //  { title: "Cover", field: "artworkUrl100", formatter: "image", ... }
   TColumn = record
     title: String;
     field: String;
@@ -55,8 +52,8 @@ var
   LColumnTitle: TColumn;
 
 begin
+  // -- definining columns in Pascal code
   SetLength( LColumns, 2 );
-
   LColumnCover.title := 'Cover';
   LColumnCover.field := 'artworkUrl100';
   LColumnCover.formatter := 'image';
@@ -66,13 +63,18 @@ begin
   LColumnTitle.headerFilter := 'input';
   LColumnTitle.editor := true;
 
-  Lcolumns[0] := LColumnCover;
+  LColumns[0] := LColumnCover;
   LColumns[1] := LColumnTitle;
-
   console.log( Js.toObject( LColumns ) );
 
+  // Response can be used directly!
+  console.log( AResponse.response );
+
+  // assign data to global variable
   self.FData := TJSArray( TJsObject( AResponse.response )['results'] );
 
+
+  // pass data to grid and display
   {$IFDEF pas2js}
   asm
     showTable(this.FData)
@@ -80,15 +82,18 @@ begin
   {$ENDIF}
 end;
 
-procedure TForm1.ShowData;
+procedure TForm1.RequestData;
 var
   LResponse: TJSXMLHttpRequest;
 
 begin
+  // wait for data request to be received
   LResponse := await( TJSXMLHttpRequest, Request.Perform );
 
+  // proceed if status code is 200
   if LResponse.Status = 200 then
   begin
+    // process result and show grid
     ProcessResult( LResponse );
   end;
 end;
@@ -96,12 +101,7 @@ end;
 procedure TForm1.btnShowClick(Sender: TObject);
 begin
   btnShow.Visible := False;
-  ShowData;
+  RequestData;
 end;
-
-  //       pagination: true,
-  //      paginationSize: 10,
-  // , formatterParams: { height: "60px", width: "60px" }
-  //       , { title: "Description", field: "longDescription", formatter: "textarea" }
 
 end.

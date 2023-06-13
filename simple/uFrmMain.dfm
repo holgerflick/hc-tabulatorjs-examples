@@ -3,16 +3,17 @@ object Form1: TForm1
   Height = 480
   CSSLibrary = cssBootstrap
   ElementFont = efCSS
-  object WebButton1: TWebButton
-    Left = 56
-    Top = 88
+  OnCreate = WebFormCreate
+  object btnShow: TWebButton
+    Left = 144
+    Top = 184
     Width = 265
-    Height = 25
+    Height = 41
     ElementID = 'btnShow'
     ElementFont = efCSS
     HeightStyle = ssAuto
     HeightPercent = 100.000000000000000000
     WidthPercent = 100.000000000000000000
-    OnClick = WebButton1Click
+    OnClick = btnShowClick
   end
 end
