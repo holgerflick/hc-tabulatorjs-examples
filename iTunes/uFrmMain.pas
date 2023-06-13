@@ -30,31 +30,54 @@ implementation
 
 {$R *.dfm}
 
+
+
 uses
   Bcl.Utils,
   DateUtils
   ;
 
-procedure TForm1.ProcessResult(AResponse: TJSXMLHttpRequest);
-begin
-  self.FData := TJSArray( TJsObject( AResponse.response )['results'] );
-  //       pagination: true,
-  //      paginationSize: 10,
-  // , formatterParams: { height: "60px", width: "60px" }
-  //       , { title: "Description", field: "longDescription", formatter: "textarea" }
-  asm
-    var table = new Tabulator("#example-table", {
-      data:this.FData,
+type
 
-      columns: [
-         { title: "Cover", field: "artworkUrl100", formatter: "image" }
-       , { title: "Title", field: "trackName", headerFilter: "input" }
-       , { title: "Release", field: "releaseDate", formatter: "datetime", formatterParams: { inputFormat: "iso", outputFormat: "dd/MM/yyyy" } }
-       , { title: "Genre", field: "primaryGenreName", headerFilter: "list", headerFilterParams: { autocomplete: true, valuesLookup: true, clearable: true } }
-       ]
-    });
+  //  { title: "Cover", field: "artworkUrl100", formatter: "image" }
+  TColumn = record
+    title: String;
+    field: String;
+    formatter: String;
+    headerFilter: String;
+    editor: Boolean;
   end;
 
+procedure TForm1.ProcessResult(AResponse: TJSXMLHttpRequest);
+var
+  LColumns: Array of TColumn;
+  LcolumnCover,
+  LColumnTitle: TColumn;
+
+begin
+  SetLength( LColumns, 2 );
+
+  LColumnCover.title := 'Cover';
+  LColumnCover.field := 'artworkUrl100';
+  LColumnCover.formatter := 'image';
+
+  LColumnTitle.title := 'Title';
+  LColumnTitle.field := 'tackName';
+  LColumnTitle.headerFilter := 'input';
+  LColumnTitle.editor := true;
+
+  Lcolumns[0] := LColumnCover;
+  LColumns[1] := LColumnTitle;
+
+  console.log( Js.toObject( LColumns ) );
+
+  self.FData := TJSArray( TJsObject( AResponse.response )['results'] );
+
+  {$IFDEF pas2js}
+  asm
+    showTable(this.FData)
+  end;
+  {$ENDIF}
 end;
 
 procedure TForm1.ShowData;
@@ -75,5 +98,10 @@ begin
   btnShow.Visible := False;
   ShowData;
 end;
+
+  //       pagination: true,
+  //      paginationSize: 10,
+  // , formatterParams: { height: "60px", width: "60px" }
+  //       , { title: "Description", field: "longDescription", formatter: "textarea" }
 
 end.

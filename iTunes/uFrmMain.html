@@ -17,5 +17,19 @@
           <div id="example-table"></div>
       </div>
     </div>
+    <script>
+      function showTable(data) {
+        var table = new Tabulator("#example-table", {
+              data:data,
+
+              columns: [
+                 { title: "Cover", field: "artworkUrl100", formatter: "image" }
+               , { title: "Title", field: "trackName", headerFilter: "input", editor: true }
+               , { title: "Release", field: "releaseDate", formatter: "datetime", formatterParams: { inputFormat: "iso", outputFormat: "dd/MM/yyyy" } }
+               , { title: "Genre", field: "primaryGenreName", headerFilter: "list", headerFilterParams: { autocomplete: true, valuesLookup: true, clearable: true } }
+               ]
+            });
+      }
+    </script>
   </body>
 </html>
