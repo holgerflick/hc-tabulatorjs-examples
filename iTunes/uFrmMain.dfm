@@ -1,6 +1,6 @@
-object Form1: TForm1
-  Width = 640
-  Height = 480
+object FrmMain: TFrmMain
+  Width = 348
+  Height = 163
   CSSLibrary = cssBootstrap
   ElementFont = efCSS
   object btnShow: TWebButton
@@ -20,7 +20,7 @@ object Form1: TForm1
     URL = 
       'https://itunes.apple.com/search?term=star+wars&country=us&entity' +
       '=movie'
-    Left = 80
-    Top = 208
+    Left = 32
+    Top = 24
   end
 end

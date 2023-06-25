@@ -3,12 +3,22 @@ unit uFrmMain;
 interface
 
 uses
-  System.SysUtils, System.Classes, JS, Web, WEBLib.Graphics, WEBLib.Controls,
-  WEBLib.Forms, WEBLib.Dialogs, Vcl.Controls, Vcl.StdCtrls, WEBLib.StdCtrls,
-  WEBLib.REST;
+    System.SysUtils
+  , System.Classes
+  , JS
+  , Web
+  , WEBLib.Graphics
+  , WEBLib.Controls
+  , WEBLib.Forms
+  , WEBLib.Dialogs
+  , Vcl.Controls
+  , Vcl.StdCtrls
+  , WEBLib.StdCtrls
+  , WEBLib.REST
+  ;
 
 type
-  TForm1 = class(TWebForm)
+  TFrmMain = class(TWebForm)
     btnShow: TWebButton;
     Request: TWebHttpRequest;
     procedure btnShowClick(Sender: TObject);
@@ -23,16 +33,11 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FrmMain: TFrmMain;
 
 implementation
 
 {$R *.dfm}
-
-uses
-  Bcl.Utils,
-  DateUtils
-  ;
 
 type
 
@@ -45,7 +50,7 @@ type
     editor: Boolean;
   end;
 
-procedure TForm1.ProcessResult(AResponse: TJSXMLHttpRequest);
+procedure TFrmMain.ProcessResult(AResponse: TJSXMLHttpRequest);
 var
   LColumns: Array of TColumn;
   LcolumnCover,
@@ -82,7 +87,7 @@ begin
   {$ENDIF}
 end;
 
-procedure TForm1.RequestData;
+procedure TFrmMain.RequestData;
 var
   LResponse: TJSXMLHttpRequest;
 
@@ -98,7 +103,7 @@ begin
   end;
 end;
 
-procedure TForm1.btnShowClick(Sender: TObject);
+procedure TFrmMain.btnShowClick(Sender: TObject);
 begin
   btnShow.Visible := False;
   RequestData;

@@ -34,7 +34,7 @@ implementation
 
 uses
   Bcl.Utils,
-  DateUtils
+  WebLib.TMSWEBUtils
   ;
 
 procedure TForm1.WebFormCreate(Sender: TObject);
@@ -54,13 +54,13 @@ begin
   LData[0].Name := 'Holger Flick';
   LData[0].Age := 27;
   LData[0].Job := 'Evangelist';
-  LData[0].Birthday := TBclUtils.DateTimeToISO( EncodeDate( 1996, 2, 10 ), false );
+  LData[0].Birthday := TBclUtils.DateToISO(EncodeDate( 1996, 2, 10 ));
 
   // assign second person
   LData[1].Name := 'Bruno Fierens';
   LData[1].Age := 28;
   LData[1].Job := 'Innovator';
-  LData[1].Birthday := TBclUtils.DateTimeToISO( EncodeDate( 1995, 2, 14 ), false );
+  LData[1].Birthday := TBclUtils.DateToISO(EncodeDate( 1995, 2, 14 ));
 
   // call JavaScript function that you copied from the documentation
   asm
