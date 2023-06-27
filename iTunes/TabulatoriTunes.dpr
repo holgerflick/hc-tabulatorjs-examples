@@ -3,13 +3,13 @@ program TabulatoriTunes;
 uses
   Vcl.Forms,
   WEBLib.Forms,
-  uFrmMain in 'uFrmMain.pas' {Form1: TWebForm} {*.html};
+  uFrmMain in 'uFrmMain.pas' {FrmMain: TWebForm} {*.html};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFrmMain, FrmMain);
   Application.Run;
 end.

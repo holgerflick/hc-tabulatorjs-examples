@@ -39,45 +39,13 @@ implementation
 
 {$R *.dfm}
 
-type
-
-  //  { title: "Cover", field: "artworkUrl100", formatter: "image", ... }
-  TColumn = record
-    title: String;
-    field: String;
-    formatter: String;
-    headerFilter: String;
-    editor: Boolean;
-  end;
-
 procedure TFrmMain.ProcessResult(AResponse: TJSXMLHttpRequest);
-var
-  LColumns: Array of TColumn;
-  LcolumnCover,
-  LColumnTitle: TColumn;
-
 begin
-  // -- definining columns in Pascal code
-  SetLength( LColumns, 2 );
-  LColumnCover.title := 'Cover';
-  LColumnCover.field := 'artworkUrl100';
-  LColumnCover.formatter := 'image';
-
-  LColumnTitle.title := 'Title';
-  LColumnTitle.field := 'tackName';
-  LColumnTitle.headerFilter := 'input';
-  LColumnTitle.editor := true;
-
-  LColumns[0] := LColumnCover;
-  LColumns[1] := LColumnTitle;
-  console.log( Js.toObject( LColumns ) );
-
   // Response can be used directly!
   console.log( AResponse.response );
 
   // assign data to global variable
   self.FData := TJSArray( TJsObject( AResponse.response )['results'] );
-
 
   // pass data to grid and display
   {$IFDEF pas2js}
@@ -108,5 +76,41 @@ begin
   btnShow.Visible := False;
   RequestData;
 end;
+
+
+(*
+  //  { title: "Cover", field: "artworkUrl100", formatter: "image", ... }
+  TColumn = record
+    title: String;
+    field: String;
+    formatter: String;
+    headerFilter: String;
+    editor: Boolean;
+  end;
+
+var
+  LColumns: Array of TColumn;
+  LcolumnCover,
+  LColumnTitle: TColumn;
+
+
+  // -- definining columns in Pascal code
+  // -- ignore this at first!
+  // -- this is also not used for the video shown
+  SetLength( LColumns, 2 );
+  LColumnCover.title := 'Cover';
+  LColumnCover.field := 'artworkUrl100';
+  LColumnCover.formatter := 'image';
+
+  LColumnTitle.title := 'Title';
+  LColumnTitle.field := 'tackName';
+  LColumnTitle.headerFilter := 'input';
+  LColumnTitle.editor := true;
+
+  LColumns[0] := LColumnCover;
+  LColumns[1] := LColumnTitle;
+  console.log( Js.toObject( LColumns ) );
+
+  *)
 
 end.
